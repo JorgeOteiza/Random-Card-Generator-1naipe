@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Rigo with Vanilla.js</title>
-    <link
-      rel="stylesheet"
-      href="style.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous"
-    />
+    <title>Random Card Generator</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="box-card">
-      <h1 class="card"></h1>
+      <div class="card-container" id="card">
+        <div class="corner-symbol top-left"></div>
+        <!-- Símbolo en la esquina superior izquierda -->
+        <div class="corner-symbol bottom-right"></div>
+        <!-- Símbolo en la esquina inferior derecha -->
+        <div class="centered-text" id="cardValue"></div>
+        <!-- Valor de la carta centrado -->
+      </div>
     </div>
+
+    <script>
+      const suitsSymbols = {
+        spade: "♠",
+        club: "♣",
+        heart: "♥",
+        diamond: "♦"
+      };
+
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function generateRandomCard() {
+        const suits = ["spade", "club", "heart", "diamond"];
+        const randomSuitIndex = getRandomNumber(0, 3);
+        const randomCardNumber = getRandomNumber(0, 12);
+        const randomSuit = suits[randomSuitIndex];
+        const cardElement = document.createElement("div");
+        cardElement.className = `card ${randomSuit}`;
+        const cardNumber =
+          randomCardNumber < 9
+            ? randomCardNumber + 2
+            : ["J", "Q", "K", "A"][randomCardNumber - 9];
+        cardElement.textContent = `${cardNumber} ${suitsSymbols[randomSuit]}`;
+        return cardElement;
+      }
+
+      const cardContainer = document.getElementById("card");
+      cardContainer.appendChild(generateRandomCard());
+    </script>
   </body>
 </html>
