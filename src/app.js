@@ -38,6 +38,12 @@ function generateRandomCard() {
       : ["J", "Q", "K", "A"][randomCardNumber - 9];
   centeredText.textContent = cardNumber;
 
+  // Verifica si la carta es roja y cambia el color del símbolo de corazones a rojo
+  if (randomSuit === "heart" || randomSuit === "diamond") {
+    topSymbol.style.color = "red";
+    bottomSymbol.style.color = "red";
+  }
+
   // Limpia el contenedor antes de agregar nuevos elementos
   cardContainer.innerHTML = "";
 
